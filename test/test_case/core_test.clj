@@ -7,7 +7,11 @@
   (assert false)
   (catch Exception ex (println "Got an exception")))
 
-(expect Exception (macroexpand-1 '(unstable)))
+;; because of quoting and the macro expansion of expect itself, this does not work:
+;; (expect Exception (macroexpand-1 '(unstable)))
+;; but both of these do (note the ` instead of ' in the second one):
+(expect Exception (macroexpand-1 '(test-case.core/unstable)))
+(expect Exception (macroexpand-1 `(unstable)))
 
 ;Alia:test-case matt$ lein autoexpect
 ;
